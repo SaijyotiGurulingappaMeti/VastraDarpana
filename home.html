@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SAREE TYPE DETECTION</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #7d23d7, #f8daf8 100%); 
+        color: black; 
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.5s ease; 
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .row{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px;
+      }
+      .column{
+        width: calc(33.33% - 20px);
+        margin: 0 10px;
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.5s ease; /* Morphing background color */
+      }
+      input[type=submit], input[type=file]{
+        width: calc(50% - 8px); /* Adjusted width */
+        border: 1px solid black; /* Updated color */
+        color: black; /* Updated color */
+        background-color: transparent;
+        padding: 14px 0;
+        margin-top: 20px;
+        margin-right: 4px; /* Added margin */
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      input[type=submit]:hover, input[type=file]:hover{
+        background-color: #FFB6C1; /* Light pink color on hover */
+        color: black; /* Updated color */
+      }
+      .column:hover{
+        background-color: #FFB6C1; /* Light pink color on hover */
+      }
+      h3{
+        border-bottom: 1px solid black; /* Updated color */
+        padding-bottom: 10px;
+        text-align: center;
+        color: black; /* Updated color */
+        transition: color 0.5s ease; /* Morphing text color */
+      }
+      h1 {
+        padding-top: 50px;
+        text-align: center;
+        margin-bottom: 30px;
+        color: black; /* Updated color */
+        transition: color 0.5s ease; /* Morphing text color */
+      }
+      img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      p {
+        color: black; /* Updated color */
+        margin: 10px 0;
+      }
+      .status-healthy {
+        color: #2ecc71;
+      }
+      .status-unhealthy {
+        color: #e74c3c;
+      }
+      .container {
+        border: 10px solid black;
+        padding: 10px;
+      }
+      body {
+            border: 20px solid black; /* Set a solid black border with a width of 2px */
+            margin: 0; /* Remove default margin to ensure border spans the entire screen */
+            padding: 0; /* Remove default padding */
+        }
+    </style>
+</head>
+<body>
+ 
+    <h1>VASTRADARPANA</h1>
+    <div class="row">
+      <div class="column">
+        <h3>Select Image</h3>
+        <form action="{{url_for('image')}}" method="POST" style="display: flex;">          
+          <input type="file" id="file" name="filename" required>
+          <div style="width: 8px;"></div> <!-- Spacer -->
+          <input type="submit" value="Analyse">
+        </form>
+      </div>
+      <div class="column">
+        <h3>Original</h3>
+        {% if (ImageDisplay) %}
+        <img src="{{ImageDisplay}}"  width="25%" alt="Original Image">
+        {% endif %}
+      </div>
+      <div class="column">
+        <h3>Grayscale</h3>
+        {% if (ImageDisplay1) %}
+        <img src="{{ImageDisplay1}}"  width="25%" alt="Gray Image">
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <h3>Segmentation</h3>
+        {% if (ImageDisplay2) %}
+        <img src="{{ImageDisplay2}}"  width="25%" alt="Segmented Image">
+        {% endif %}
+      </div>
+      <div class="column">
+        <h3>Graph</h3>
+        {% if (ImageDisplay3) %}
+        <img src="{{ImageDisplay3}}"  width="50%" alt="Graph Image">
+        {% endif %}
+      </div>
+      <div class="column">
+        
+          <h3>Answer</h3>
+          {% if (status) %}
+              {% if status == "Healthy" %}
+                <h4><p><b>Result:</b>Healthy</p></h4>  
+                <h4><p><b>Accuracy:</b>{{accuracy}}</p></h4>  
+    
+              {% else %}
+             <h4><p><b>Result:</b>{{status}}</p></h4> 
+             <h4><p><b>Accuracy:</b>{{accuracy}}</p></h4>
+                 
+              {% endif %}
+            {% endif %}
+    
+      </div>
+    </div>
+  
+</body>
+</html>
